@@ -53,7 +53,7 @@
         </dependency>
 
         <!--Spring Boot 整合Mybatis相关jar包-->
-        <!-- <dependency>
+        <dependency>
              <groupId>org.mybatis.spring.boot</groupId>
              <artifactId>mybatis-spring-boot-starter</artifactId>
              <version>1.0.0</version>
@@ -75,7 +75,7 @@
              <groupId>org.mybatis</groupId>
              <artifactId>mybatis</artifactId>
              <version>3.2.8</version>
-         </dependency>-->
+         </dependency>
 
         <!--fastjson jar包-->
         <dependency>

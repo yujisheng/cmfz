@@ -6,11 +6,62 @@
     <title>持名法州主页</title>
     <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
         <!--菜单处理-->
+        $(function () {
+            $.ajax({
+                url: "/cmfz/menu/getMenus.do",
+                type: "post",
+                //data:{"auctionId":auctionId},
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        $('#aa').accordion('add', {
+                            title: "<img src='../themes/icons/" + data[i].menu_iconCls + "'/>" + data[i].menu_title,
+                            content: function () {
+                                var menus = data[i].menus;
+                                console.log(menus);
+                                var con = "";
+                                for (var ii = 0; ii < menus.length; ii++) {
+                                    con = con + "<p style='text-indent: 2em'><a href='#' style='text-decoration: none'><img src='../themes/icons/" + menus[ii].menu_iconCls + "'/>" + menus[ii].menu_title + "</a></p>";
+                                }
+                                return con;
+                            },
+                            selected: false,
+                            //iconCls:"icon-cut",
+                            border: true
+                        });
+                    }
+                }
+            });
+        });
+
+        // 添加一个页签，并展示对应分类下的图书信息
+        function toAddTabsByBookCategory(node) {
+            //console.log(node.text);
+            //alert(node.id);
+            // 判断当前点击标签是否存在
+            var isExists = $("#tt").tabs("exists", node.text);
+            if (isExists) {
+                // 存在
+                $("#tt").tabs("select", node.text);
+            } else {
+                // 不存在
+                $('#tt').tabs('add', {
+                    title: node.text,
+                    closable: true,
+                    //iconCls:"icon-save",
+                    content: "<iframe src='book.jsp?categoryId=" + node.id + "' width='100%' height='100%'></iframe>"
+                });
+            }
+        }
+
+        // 添加一个页签，并展示对应分类下的图书信息====END
     </script>
 
 </head>
@@ -38,6 +89,7 @@
     <div id="tt" class="easyui-tabs" data-options="fit:true,narrow:true,pill:true">
         <div title="主页" data-options="iconCls:'icon-neighbourhood',"
              style="background-image:url(image/shouye.jpg);background-repeat: no-repeat;background-size:100% 100%;"></div>
+
     </div>
 </div>
 </body>

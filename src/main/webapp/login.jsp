@@ -17,21 +17,45 @@
         $(function () {
             //点击更换验证码：
             $("#captchaImage").click(function () {//点击更换验证码
-                alert("自己做");
+                //alert("kaptcha");
+                $(this).prop('src', "${pageContext.request.contextPath}/getKaptcha.do?=" + new Date().getTime());
             });
 
             //  form 表单提交
             $("#loginForm").bind("submit", function () {
-                alert("自己做");
+                //alert("form");
+                var name = $("#adminName").val();
+                var pwd = $("#adminPassword").val();
+                var kaptcha = $("#enCode").val();
+                //alert(name+"======"+pwd+"======"+kaptcha);
+                $.ajax({
+                    url: "/cmfz/admin/adminLogin.do",
+                    type: "post",
+                    data: {"name": name, "pwd": pwd, "kaptcha": kaptcha},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        console.log(data);
+                        if (data) {
+                            location = "${pageContext.request.contextPath}/main/main.jsp";
+                        } else {
+                            // 页面右下角弹出提示框
+                            alert("登录失败！");
+                            location = "${pageContext.request.contextPath}/login.jsp";
+                        }
+                    }
+                });
                 return false;
             });
         });
+
     </script>
 </head>
 <body>
 
 <div class="login">
-    <form id="loginForm" action="../back/index.html" method="post">
+    <%--<form id="loginForm" action="../back/index.html" method="post">--%>
+    <form id="loginForm" method="post">
 
         <table>
             <tbody>
@@ -43,7 +67,8 @@
                     用户名:
                 </th>
                 <td>
-                    <input type="text" name="user.name" class="text" value="xxx" maxlength="20"/>
+                    <input type="text" name="name" class="text" value="admin"
+                           maxlength="20" id="adminName"/>
                 </td>
             </tr>
             <tr>
@@ -51,8 +76,8 @@
                     密&nbsp;&nbsp;&nbsp;码:
                 </th>
                 <td>
-                    <input type="password" name="user.password" class="text" value="xxx" maxlength="20"
-                           autocomplete="off"/>
+                    <input type="password" name="pwd" class="text" value="123456" maxlength="20"
+                           autocomplete="off" id="adminPassword"/>
                 </td>
             </tr>
 
@@ -61,7 +86,8 @@
                 <th>验证码:</th>
                 <td>
                     <input type="text" id="enCode" name="enCode" class="text captcha" maxlength="4" autocomplete="off"/>
-                    <img id="captchaImage" class="captchaImage" src="img/captcha.jpg" title="点击更换验证码"/>
+                    <img id="captchaImage" class="captchaImage" src="${pageContext.request.contextPath}/getKaptcha.do"
+                         title="点击更换验证码"/>
                 </td>
             </tr>
             <tr>
