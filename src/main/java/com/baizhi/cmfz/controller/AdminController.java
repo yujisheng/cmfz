@@ -21,8 +21,8 @@ public class AdminController {
     public boolean adminLogin(String name, String pwd, String kaptcha, HttpSession session) {
         String code = (String) session.getAttribute("kaptcha");
         Admin admin1 = adminService.adminLogin(name, pwd);
-        System.out.println("name = " + name + "pwd = " + pwd);
-        System.out.println("code = " + code + "kaptcha" + kaptcha);
+        System.out.println("name = " + name + "\tpwd = " + pwd);
+        System.out.println("code = " + code + "\tkaptcha = " + kaptcha);
 
         if (admin1 != null && code.equals(kaptcha)) {
             return true;

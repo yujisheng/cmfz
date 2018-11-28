@@ -7,9 +7,12 @@
     <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">
     <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
     <script type="text/javascript">
         <!--菜单处理-->
         $(function () {
@@ -28,13 +31,13 @@
                                 console.log(menus);
                                 var con = "";
                                 for (var ii = 0; ii < menus.length; ii++) {
-                                    con = con + "<p style='text-indent: 2em'><a href='#' style='text-decoration: none'><img src='../themes/icons/" + menus[ii].menu_iconCls + "'/>" + menus[ii].menu_title + "</a></p>";
+                                    //con = con + "<p style='text-indent: 2em' onclick='toAddTabs('" + menus[ii].menu_title + "','" + menus[ii].menu_url + "','" + menus[ii].menu_iconCls + "')'><img src='../themes/icons/" + menus[ii].menu_iconCls + "'/>" + menus[ii].menu_title + "</p>";
+                                    con += "<p align='center'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" onclick=\"toAddTabs('" + menus[ii].menu_title + "','" + menus[ii].menu_url + "','" + menus[ii].menu_iconCls + "')\" data-options=\"iconCls:'icon-tip'\">" + menus[ii].menu_title + "</a></p>";
                                 }
                                 return con;
                             },
                             selected: false,
                             //iconCls:"icon-cut",
-                            border: true
                         });
                     }
                 }
@@ -42,21 +45,23 @@
         });
 
         // 添加一个页签，并展示对应分类下的图书信息
-        function toAddTabsByBookCategory(node) {
-            //console.log(node.text);
-            //alert(node.id);
+        function toAddTabs(title, url, iconCls) {
+            console.log(title);
+            console.log(url);
+            console.log(iconCls);
             // 判断当前点击标签是否存在
-            var isExists = $("#tt").tabs("exists", node.text);
+            var isExists = $("#tt").tabs("exists", title);
             if (isExists) {
                 // 存在
-                $("#tt").tabs("select", node.text);
+                $("#tt").tabs("select", title);
             } else {
                 // 不存在
                 $('#tt').tabs('add', {
-                    title: node.text,
+                    title: title,
                     closable: true,
                     //iconCls:"icon-save",
-                    content: "<iframe src='book.jsp?categoryId=" + node.id + "' width='100%' height='100%'></iframe>"
+                    //content: "<iframe src='/turn_img.jsp' width='100%' height='100%'></iframe>"
+                    href: "${pageContext.request.contextPath}/main/turn_img.jsp",
                 });
             }
         }

@@ -7,11 +7,16 @@
     <meta http-equiv="description" content="this is my page">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
+
     <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="css/common.css" type="text/css"></link>
     <link rel="stylesheet" href="css/login.css" type="text/css"></link>
-    <script type="text/javascript" src="script/jquery.js"></script>
-    <script type="text/javascript" src="script/common.js"></script>
+    <%--<script type="text/javascript" src="script/jquery.js"></script>--%>
+    <%--<script type="text/javascript" src="script/common.js"></script>--%>
+
     <script type="text/javascript">
 
         $(function () {
@@ -24,24 +29,50 @@
             //  form 表单提交
             $("#loginForm").bind("submit", function () {
                 //alert("form");
-                var name = $("#adminName").val();
-                var pwd = $("#adminPassword").val();
-                var kaptcha = $("#enCode").val();
-                //alert(name+"======"+pwd+"======"+kaptcha);
-                $.ajax({
+                /* var name = $("#adminName").val();
+                 var pwd = $("#adminPassword").val();
+                 var kaptcha = $("#enCode").val();
+                 //alert(name+"======"+pwd+"======"+kaptcha);
+                 $.ajax({
+                     url: "/cmfz/admin/adminLogin.do",
+                     type: "post",
+                     data: {"name": name, "pwd": pwd, "kaptcha": kaptcha},
+                     dataType: "json",
+                     async: false,
+                     success: function (data) {
+                         console.log(data);
+                         if (data) {
+                             location = "/main/main.jsp";
+                         } else {
+                             // 页面右下角弹出提示框
+                             alert("登录失败！");
+                             location = "/login.jsp";
+                         }
+                     }
+                 });
+                 return false;*/
+
+
+                $("#loginForm").form("submit", {
+                    // 当submit的返回值为false时，阻止表单提交
                     url: "/cmfz/admin/adminLogin.do",
-                    type: "post",
-                    data: {"name": name, "pwd": pwd, "kaptcha": kaptcha},
-                    dataType: "json",
-                    async: false,
+                    // 回调函数，后台响应结果data是json串
                     success: function (data) {
                         console.log(data);
+                        // 将json串转换成js对象
+                        data = JSON.parse(data);
                         if (data) {
                             location = "${pageContext.request.contextPath}/main/main.jsp";
                         } else {
                             // 页面右下角弹出提示框
-                            alert("登录失败！");
-                            location = "${pageContext.request.contextPath}/login.jsp";
+                            $.messager.show({
+                                title: '提示信息',
+                                msg: '登录失败!',   // 提示内容
+                                timeout: 3000,      //弹框停留页面的时间
+                                showType: 'slide'   //弹框弹出方式
+                            });
+                            // 刷新验证码
+                            $("#captchaImage").prop('src', "${pageContext.request.contextPath}/getKaptcha.do?=" + new Date().getTime());
                         }
                     }
                 });
@@ -85,7 +116,8 @@
                 <td>&nbsp;</td>
                 <th>验证码:</th>
                 <td>
-                    <input type="text" id="enCode" name="enCode" class="text captcha" maxlength="4" autocomplete="off"/>
+                    <input type="text" id="enCode" name="kaptcha" class="text captcha" maxlength="4"
+                           autocomplete="off"/>
                     <img id="captchaImage" class="captchaImage" src="${pageContext.request.contextPath}/getKaptcha.do"
                          title="点击更换验证码"/>
                 </td>

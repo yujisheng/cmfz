@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.cmfz.dao.TurnImgDao">
+
+    <select id="getAllImg" resultType="TurnImg">
+        select * from turnImg LIMIT #{start},#{rows}
+    </select>
+
+    <select id="getImgCount" resultType="Integer">
+        select count(*) from  turnimg
+    </select>
+
+    <insert id="addImg">
+        insert into turnimg(img_title,img_desc,img_status,img_date,imgPath)
+        values(#{img_title},#{img_desc},#{img_status},#{img_date},#{imgPath})
+    </insert>
+
+    <delete id="deleteMultiImg">
+        delete from turnimg where img_id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">#{id}</foreach>
+    </delete>
+
+    <update id="updateImg">
+        update turnimg set img_title=#{img_title},img_desc=#{img_desc},img_status=#{img_status},imgPath=#{imgPath}
+        where img_id=#{img_id}
+    </update>
+</mapper>
+

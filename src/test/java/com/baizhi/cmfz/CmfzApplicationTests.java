@@ -4,6 +4,7 @@ import com.baizhi.cmfz.dao.AdminDao;
 import com.baizhi.cmfz.entity.Admin;
 import com.baizhi.cmfz.entity.Menu;
 import com.baizhi.cmfz.service.MenuService;
+import com.baizhi.cmfz.service.TurnImgService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,6 +36,18 @@ public class CmfzApplicationTests {
         for (Menu menu : menus) {
             System.out.println("menu = " + menu);
         }
+    }
+
+    @Autowired
+    private TurnImgService turnImgService;
+
+    @Test
+    public void mmm() {
+        Map turnImgs = turnImgService.getAllImg(1, 3);
+        for (Object value : turnImgs.values()) {
+            System.out.println("value = " + value);
+        }
+
     }
 
 }
