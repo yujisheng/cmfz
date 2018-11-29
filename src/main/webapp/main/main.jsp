@@ -61,7 +61,7 @@
                     closable: true,
                     //iconCls:"icon-save",
                     //content: "<iframe src='/turn_img.jsp' width='100%' height='100%'></iframe>"
-                    href: "${pageContext.request.contextPath}/main/turn_img.jsp",
+                    href: "${pageContext.request.contextPath}" + url,
                 });
             }
         }

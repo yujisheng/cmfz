@@ -1,7 +1,10 @@
 package com.baizhi.cmfz;
 
 import com.baizhi.cmfz.dao.AdminDao;
+import com.baizhi.cmfz.dao.AlbumDao;
 import com.baizhi.cmfz.entity.Admin;
+import com.baizhi.cmfz.entity.Album;
+import com.baizhi.cmfz.entity.Chapter;
 import com.baizhi.cmfz.entity.Menu;
 import com.baizhi.cmfz.service.MenuService;
 import com.baizhi.cmfz.service.TurnImgService;
@@ -48,6 +51,21 @@ public class CmfzApplicationTests {
             System.out.println("value = " + value);
         }
 
+    }
+
+    @Autowired
+    private AlbumDao albumDao;
+
+    @Test
+    public void mm2() {
+        List<Album> albums = albumDao.getAllAlbumAndChapter(0, 10);
+        for (Album album : albums) {
+            System.out.println("album = " + album);
+            for (Chapter child : album.getChildren()) {
+                System.out.println("child = " + child);
+            }
+        }
+        System.out.println(albumDao.getCount());
     }
 
 }

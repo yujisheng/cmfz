@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.cmfz.dao.AlbumDao">
+
+    <resultMap id="albumMap" type="Album">
+        <result column="album_id" property="id"/>
+        <result column="album_title" property="title"/>
+        <result column="coverImg" property="coverImg"/>
+        <result column="score" property="score"/>
+        <result column="author" property="author"/>
+        <result column="broadCast" property="broadCast"/>
+        <result column="brief" property="brief"/>
+        <result column="publishDate" property="publishDate"/>
+        <result column="album_count" property="album_count"/>
+
+        <collection property="children" ofType="Chapter">
+            <result column="chapter_id" property="id"/>
+            <result column="chapter_title" property="title"/>
+            <result column="chapter_size" property="chapter_size"/>
+            <result column="duration" property="duration"/>
+            <result column="downPath" property="downPath"/>
+            <result column="uploadDate" property="uploadDate"/>
+            <result column="albumId" property="album_id"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAllAlbumAndChapter" resultMap="albumMap">
+        select a.*,
+            c.album_id as albumId,
+            c.chapter_id,
+            c.chapter_title,
+            c.chapter_size,
+            c.downPath,
+            c.duration,
+            c.uploadDate
+        FROM album a LEFT JOIN chapter c
+        on a.album_id = c.album_id
+        limit #{start},#{rows}
+    </select>
+
+    <select id="getCount" resultType="Integer">
+        select count(*) FROM album
+    </select>
+
+    <insert id="addAlbum">
+        insert into album(Album_title,coverImg,score,author,broadCast,brief,publishDate,album_count)
+        values(#{title},#{coverImg},#{score},#{author},#{broadCast},#{brief},#{publishDate},#{album_count})
+    </insert>
+
+</mapper>
+

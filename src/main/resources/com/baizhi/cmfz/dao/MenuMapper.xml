@@ -3,27 +3,24 @@
 <mapper namespace="com.baizhi.cmfz.dao.MenuDao">
 
     <resultMap id="menuMap" type="Menu">
-        <result column="menu_id" property="menu_id"/>
-        <result column="menu_title" property="menu_title"/>
-        <result column="menu_iconCls" property="menu_iconCls"/>
-        <result column="menu_pid" property="menu_pid"/>
-        <result column="menu_url" property="menu_url"/>
+        <result column="menuId" property="menu_id"/>
+        <result column="menuTitle" property="menu_title"/>
+        <result column="menuIconCls" property="menu_iconCls"/>
+        <result column="menuUrl" property="menu_url"/>
         <collection property="menus" ofType="Menu">
-            <result column="menuId" property="menu_id"/>
-            <result column="menuTitle" property="menu_title"/>
-            <result column="menuIconCls" property="menu_iconCls"/>
+            <result column="menu_id" property="menu_id"/>
+            <result column="menu_title" property="menu_title"/>
+            <result column="menu_iconCls" property="menu_iconCls"/>
             <result column="menu_pid" property="menu_pid"/>
-            <result column="menuUrl" property="menu_url"/>
+            <result column="menu_url" property="menu_url"/>
         </collection>
     </resultMap>
 
     <select id="getMenus" resultMap="menuMap">
-        select m1.menu_id,
-               m1.menu_title,
-               m1.menu_iconCls,
-               m2.menu_id as menuId,
-               m2.menu_title as menuTitle,
-               m2.menu_iconCls as menuIconCls
+        select m1.menu_id as menuId,
+               m1.menu_title as  menuTitle,
+               m1.menu_iconCls as menuIconCls,
+               m2.*
         from menu m1 LEFT JOIN menu m2
         on m1.menu_id = m2.menu_pid
         where m1.menu_pid is null

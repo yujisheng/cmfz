@@ -24,7 +24,7 @@
                 file = files[0];
                 // 文件的限定类型什么的道理是一样的
                 if (file.size > 1024 * 1024 * 10) {
-                    alert('图片大小不能超过 2MB!');
+                    alert('图片大小不能超过 10MB!');
                     return false;
                 }
                 // file对象生成可用的图片
