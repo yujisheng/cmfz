@@ -12,7 +12,7 @@ public class Chapter implements Serializable {
     private String id;
     private Integer album_id;
     private String title;
-    private Double chapter_size;
+    private String chapter_size;
     private String duration;
     private String downPath;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

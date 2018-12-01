@@ -102,11 +102,30 @@
             iconCls: 'icon-undo',
             text: "下载音频",
             handler: function () {
-                alert('下载音频');
-                var row = $("#chapter_tg").treegrid("getSelected");
-                if (row != null) {
-                    if (row.size != null) {
-                        location.href = "${pageContext.request.contextPath}/chapter/download?url=" + row.url + "&title=" + row.title
+                //alert('下载音频');
+                var row = $("#album_tt").treegrid("getSelected");
+                console.log(row);
+                if (row == null) {
+                    $.messager.show({
+                        title: '提示信息',
+                        msg: '请选中章节',
+                        showType: 'show',
+                        timeout: 3000,
+                        showType: 'slide'
+                    });
+                } else {
+                    if (row.score == null) {
+                        if (row.chapter_size != null) {
+                            location.href = "${pageContext.request.contextPath}/chapter/download?url=" + row.downPath + "&title=" + row.title;
+                        }
+                    } else {
+                        $.messager.show({
+                            title: '提示信息',
+                            msg: '请选中章节',
+                            showType: 'show',
+                            timeout: 3000,
+                            showType: 'slide'
+                        });
                     }
                 }
             }
@@ -131,8 +150,9 @@
 
             // 双击播放
             onDblClickRow: function (row) {
+                console.log(row);
+                $("#audio_id").prop("src", "${pageContext.request.contextPath}" + row.downPath)
                 $("#audio").dialog("open")
-                $("#audio_id").prop("src", "${pageContext.request.contextPath}/datagrid/upload/" + row.chapter_url)
             }
         });
 
@@ -203,6 +223,10 @@
             width: 400,
             height: 200,
             closed: true,
+            onClose: function () {
+                //alert(0);
+                $("#album_tt").treegrid("load");
+            }
         });
         // 播放====END
     })
