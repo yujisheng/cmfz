@@ -34,13 +34,13 @@
                 left: 'right',
                 top: 'center',
                 feature: {
-                    /* mark: {show: true},
+                    mark: {show: true},
                      dataView: {show: true, readOnly: false},
                      restore: {show: true},
-                     saveAsImage: {show: true}*/
-                    dataView: {readOnly: false},
+                    saveAsImage: {show: true}
+                    /*dataView: {readOnly: false},
                     restore: {},
-                    saveAsImage: {}
+                    saveAsImage: {}*/
                 }
             },
             series: [
@@ -48,10 +48,10 @@
                     name: '男',
                     type: 'map',
                     mapType: 'china',
-                    roam: false,
+                    roam: true,
                     label: {
                         normal: {
-                            show: false
+                            show: true
                         },
                         emphasis: {
                             show: true
@@ -65,7 +65,7 @@
                     mapType: 'china',
                     label: {
                         normal: {
-                            show: false
+                            show: true
                         },
                         emphasis: {
                             show: true
@@ -85,11 +85,13 @@
                 series: [{
                     name: "男",
                     data: data.man
+
                 }, {
                     name: "女",
                     data: data.woman
                 }]
             });
+            j
 
         }, "json")
 

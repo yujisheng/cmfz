@@ -1,6 +1,8 @@
 package com.baizhi.cmfz.dao;
 
+import com.baizhi.cmfz.entity.User;
 import com.baizhi.cmfz.entity.UserDto;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,4 +28,25 @@ public interface UserDao {
      * @return
      */
     public List<UserDto> getWomanCount();
+
+    /**
+     * 获取所有用户信息并分页
+     *
+     * @return
+     */
+    public List<User> getAllUser(@Param("start") Integer start, @Param("rows") Integer rows);
+
+    /**
+     * 统计用户的数量
+     *
+     * @return
+     */
+    public int getAllCount();
+
+    /**
+     * 获取所有用户信息不分页
+     *
+     * @return
+     */
+    public List<User> getAll();
 }

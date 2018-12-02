@@ -1,6 +1,7 @@
 package com.baizhi.cmfz.service.impl;
 
 import com.baizhi.cmfz.dao.UserDao;
+import com.baizhi.cmfz.entity.User;
 import com.baizhi.cmfz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,21 @@ public class UserServiceImpl implements UserService {
         Map map = new HashMap();
         map.put("data", userDao.getWomanCount());
         return map;
+    }
+
+    @Override
+    public Map getAllUser(Integer page, Integer rows) {
+        Integer start = (page - 1) * rows;
+        int total = userDao.getAllCount();
+        List<User> users = userDao.getAllUser(start, rows);
+        Map map = new HashMap();
+        map.put("total", total);
+        map.put("rows", users);
+        return map;
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userDao.getAll();
     }
 }

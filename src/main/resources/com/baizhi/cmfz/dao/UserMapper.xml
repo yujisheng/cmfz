@@ -13,5 +13,17 @@
     <select id="getWomanCount" resultType="UserDto">
         SELECT count(*) as value ,province as name FROM `user` where sex=0 GROUP BY province
     </select>
+
+    <select id="getAllUser" resultType="User">
+        select * from `user` limit #{start},#{rows}
+    </select>
+
+    <select id="getAllCount" resultType="Integer">
+        select count(*) from `user`
+    </select>
+
+    <select id="getAll" resultType="User">
+        select * from `user`
+    </select>
 </mapper>
 

@@ -41,4 +41,10 @@ public class UserController {
         System.out.println("女");
         return userService.getWomanCount();
     }
+
+    @RequestMapping("/getAllUser")
+    @ResponseBody
+    public Map getAllUser(Integer page, Integer rows) {
+        return userService.getAllUser(page, rows);
+    }
 }

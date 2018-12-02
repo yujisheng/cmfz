@@ -1,5 +1,7 @@
 package com.baizhi.cmfz.service;
 
+import com.baizhi.cmfz.entity.User;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,4 +28,18 @@ public interface UserService {
     public Map getWomanCount();
 
     public Map getCountManAndWoman();
+
+    /**
+     * 获取所有用户信息并分页
+     *
+     * @return
+     */
+    public Map getAllUser(Integer page, Integer rows);
+
+    /**
+     * 获取所有用户信息不分页
+     *
+     * @return
+     */
+    public List<User> getAll();
 }
