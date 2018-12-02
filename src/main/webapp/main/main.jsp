@@ -13,6 +13,10 @@
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
     <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
+    <%--Echarts的技js--%>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+    <%--Echarts中国地图js--%>
+    <script type="text/javascript" src="../js/china.js"></script>
     <script type="text/javascript">
         <!--菜单处理-->
         $(function () {

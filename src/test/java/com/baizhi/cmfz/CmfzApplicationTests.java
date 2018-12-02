@@ -8,6 +8,7 @@ import com.baizhi.cmfz.entity.Chapter;
 import com.baizhi.cmfz.entity.Menu;
 import com.baizhi.cmfz.service.MenuService;
 import com.baizhi.cmfz.service.TurnImgService;
+import com.baizhi.cmfz.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,22 @@ public class CmfzApplicationTests {
             }
         }
         System.out.println(albumDao.getCount());
+    }
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    public void mm3() {
+        List<Integer> userCount = userService.getUserCount();
+        for (Integer integer : userCount) {
+            System.out.println("integer = " + integer);
+        }
+
+        Map countManAndWoman = userService.getCountManAndWoman();
+        for (Object value : countManAndWoman.values()) {
+            System.out.println("value = " + value);
+        }
     }
 
 }
